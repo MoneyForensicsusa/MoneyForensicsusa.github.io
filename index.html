@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ifechukwu Eyeh — AI Engineer & Cloud Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0f; --bg2: #0f0f1a; --surface: #13131f;
+    --border: rgba(255,255,255,0.07); --accent: #00e5ff;
+    --accent2: #7c3aed; --accent3: #10b981;
+    --text: #f0f0f8; --muted: #6b7280;
+    --font-display: 'Syne', sans-serif; --font-mono: 'DM Mono', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-display); overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(0,229,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px; pointer-events: none; z-index: 0;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent); letter-spacing: 0.1em; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-family: var(--font-mono); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4rem 4rem; position: relative; z-index: 1; }
+  .hero-content { max-width: 900px; }
+  .hero-label { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.6s ease forwards 0.2s; }
+  .hero-name { font-size: clamp(3rem, 7vw, 6rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.6s ease forwards 0.4s; }
+  .hero-name span { background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-title { font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 600; color: var(--muted); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.6s ease forwards 0.6s; }
+  .hero-bio { font-size: 1.1rem; line-height: 1.7; color: rgba(240,240,248,0.7); max-width: 600px; margin-bottom: 3rem; opacity: 0; animation: fadeUp 0.6s ease forwards 0.8s; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.6s ease forwards 1s; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 2rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.85rem; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer; }
+  .btn-primary { background: var(--accent); color: var(--bg); font-weight: 500; }
+  .btn-primary:hover { background: #33eeff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,255,0.3); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .hero-glow { position: absolute; top: 20%; right: 5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%); pointer-events: none; animation: pulse 4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.1)} }
+  .stats-bar { position: relative; z-index: 1; display: flex; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); overflow-x: auto; }
+  .stat { flex: 1; min-width: 140px; padding: 1.5rem 2rem; border-right: 1px solid var(--border); text-align: center; }
+  .stat:last-child { border-right: none; }
+  .stat-number { font-size: 2rem; font-weight: 800; color: var(--accent); font-family: var(--font-mono); margin-bottom: 0.4rem; }
+  .stat-label { font-size: 0.68rem; color: var(--muted); font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+  section { position: relative; z-index: 1; padding: 6rem 4rem; }
+  .section-label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
+  .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .section-subtitle { font-size: 1.05rem; color: var(--muted); max-width: 600px; line-height: 1.6; margin-bottom: 4rem; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { font-size: 1rem; line-height: 1.8; color: rgba(240,240,248,0.75); margin-bottom: 1.5rem; }
+  .about-text p strong { color: var(--text); }
+  .about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+  .highlight-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
+  .highlight-card:hover { border-color: rgba(0,229,255,0.3); transform: translateX(4px); }
+  .highlight-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .highlight-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .highlight-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .projects-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+  .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.3s; position: relative; }
+  .project-card:hover { border-color: rgba(0,229,255,0.25); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .col-8 { grid-column: span 8; }
+  .col-4 { grid-column: span 4; }
+  .col-6 { grid-column: span 6; }
+  .col-12 { grid-column: span 12; }
+  .featured { display: grid; grid-template-columns: 1fr 1.4fr; }
+  .project-visual { background: linear-gradient(135deg, rgba(0,229,255,0.08) 0%, rgba(124,58,237,0.08) 100%); min-height: 200px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; overflow: hidden; }
+  .project-visual::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,229,255,0.025) 10px, rgba(0,229,255,0.025) 11px); }
+  .project-body { padding: 1.75rem; }
+  .project-status { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .status-live { color: var(--accent3); }
+  .status-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: blink 2s ease-in-out infinite; }
+  .status-building { color: #f59e0b; }
+  .status-building::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #f59e0b; }
+  .status-planned { color: var(--muted); }
+  .status-planned::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .project-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.6rem; line-height: 1.2; }
+  .project-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.1rem; }
+  .project-metrics { display: flex; gap: 1.25rem; margin-bottom: 1.1rem; flex-wrap: wrap; }
+  .metric-value { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 600; color: var(--accent); display: block; }
+  .metric-label { font-size: 0.62rem; color: var(--muted); white-space: nowrap; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.1rem; }
+  .tag { font-family: var(--font-mono); font-size: 0.62rem; padding: 0.18rem 0.55rem; border-radius: 999px; background: rgba(0,229,255,0.07); border: 1px solid rgba(0,229,255,0.12); color: var(--accent); }
+  .project-links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .project-link { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); text-decoration: none; padding: 0.35rem 0.8rem; border: 1px solid var(--border); border-radius: 4px; transition: all 0.2s; }
+  .project-link:hover { color: var(--accent); border-color: rgba(0,229,255,0.4); }
+  .roadmap-badge { position: absolute; top: 0.8rem; right: 0.8rem; font-family: var(--font-mono); font-size: 0.6rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.25); color: #a78bfa; letter-spacing: 0.1em; text-transform: uppercase; z-index: 2; }
+  .tech-section { background: var(--bg2); }
+  .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+  .tech-category { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: border-color 0.2s; }
+  .tech-category:hover { border-color: rgba(0,229,255,0.2); }
+  .tech-cat-title { font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+  .tech-items { display: flex; flex-direction: column; gap: 0.5rem; }
+  .tech-item { font-size: 0.85rem; color: rgba(240,240,248,0.7); display: flex; align-items: center; gap: 0.5rem; }
+  .tech-item::before { content: '▸'; color: var(--accent); font-size: 0.7rem; }
+  .contact-section { text-align: center; }
+  .contact-section .section-title, .contact-section .section-subtitle { margin-left: auto; margin-right: auto; }
+  .contact-cards { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem; }
+  .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem 2.5rem; text-decoration: none; color: var(--text); transition: all 0.3s; min-width: 200px; }
+  .contact-card:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+  .contact-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .contact-card-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .contact-card-value { font-size: 0.875rem; font-weight: 600; color: var(--accent); }
+  footer { position: relative; z-index: 1; padding: 2rem 4rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+  footer span { color: var(--accent); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem} .nav-links{display:none}
+    .hero{padding:6rem 1.5rem 3rem} section{padding:4rem 1.5rem}
+    .about-grid{grid-template-columns:1fr;gap:2rem}
+    .projects-grid{grid-template-columns:1fr}
+    .col-8,.col-4,.col-6,.col-12{grid-column:span 1}
+    .featured{grid-template-columns:1fr}
+    footer{padding:1.5rem;flex-direction:column;gap:1rem;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">IE / AI_ENGINEER</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <p class="hero-label">// Available for new projects · Austin, Texas</p>
+    <h1 class="hero-name">Ifechukwu<br><span>Wonderful Eyeh</span></h1>
+    <p class="hero-title">AI Engineer & Cloud Architect</p>
+    <p class="hero-bio">I build intelligent AI systems that solve real business problems — from autonomous multi-agent workflows to enterprise cloud infrastructure. I specialise in end-to-end automation pipelines, multi-platform integrations, and production-grade deployments that run 24/7 without human intervention.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects →</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat fade-in"><div class="stat-number">8+</div><div class="stat-label">APIs Integrated</div></div>
+  <div class="stat fade-in"><div class="stat-number">24/7</div><div class="stat-label">Cloud Uptime</div></div>
+  <div class="stat fade-in"><div class="stat-number">1.2K+</div><div class="stat-label">Views Day One</div></div>
+  <div class="stat fade-in"><div class="stat-number">2</div><div class="stat-label">Platforms Live</div></div>
+  <div class="stat fade-in"><div class="stat-number">30min</div><div class="stat-label">Daily Ops Time</div></div>
+  <div class="stat fade-in"><div class="stat-number">6</div><div class="stat-label">Projects Planned</div></div>
+</div>
+
+<section id="about">
+  <p class="section-label fade-in">// About me</p>
+  <h2 class="section-title fade-in">Building the future,<br>one automation at a time</h2>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>I'm an <strong>AI Engineer and Cloud Architect</strong> based in Austin, Texas with hands-on experience in GCP, Azure, and modern cloud infrastructure. I design and build systems where AI models act as the brain inside larger automated workflows.</p>
+      <p>My work sits at the intersection of <strong>AI engineering, cloud architecture, and real-world deployment</strong>. I don't just prototype — I build production systems that run 24/7, handle failures gracefully, and deliver measurable results from day one.</p>
+      <p>From autonomous content pipelines to multi-agent financial intelligence systems, I turn complex multi-step processes into systems that run themselves — with humans staying in control of the decisions that matter.</p>
+    </div>
+    <div class="about-highlights fade-in">
+      <div class="highlight-card">
+        <div class="highlight-icon">☁️</div>
+        <div class="highlight-title">Cloud Architecture</div>
+        <div class="highlight-desc">GCP & Azure experience with production deployments. CI/CD with GitHub Actions and automated pipelines running 24/7 on Railway and cloud infrastructure.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🤖</div>
+        <div class="highlight-title">AI Engineering</div>
+        <div class="highlight-desc">Building autonomous agents and multi-agent systems with Claude. End-to-end pipelines with human-in-the-loop approval flows and MCP protocol integration.</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">⚡</div>
+        <div class="highlight-title">API Integration</div>
+        <div class="highlight-desc">Expert at connecting platforms — YouTube, Meta Graph API, Telegram, Google OAuth2 and more into cohesive automated production systems.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" style="background:var(--bg2)">
+  <p class="section-label fade-in">// Projects</p>
+  <h2 class="section-title fade-in">What I build</h2>
+  <p class="section-subtitle fade-in">Production systems and cutting-edge AI agents. Not demos — real systems generating real results.</p>
+
+  <div class="projects-grid">
+
+    <!-- P1: Money Forensics — Featured -->
+    <div class="project-card col-8 featured fade-in">
+      <div class="project-visual">🔍</div>
+      <div class="project-body">
+        <div class="project-status status-live">Live in Production</div>
+        <h3 class="project-name">Money Forensics — Autonomous Content Pipeline</h3>
+        <p class="project-desc">End-to-end AI content automation. Monitors source channels 24/7, produces 5 short-form video clips daily with AI captions, branding and descriptions, distributes across YouTube and Facebook with scheduled posting, and manages audience engagement through automated comment scoring and response drafting — all from a single Telegram tap.</p>
+        <div class="project-metrics">
+          <div class="metric"><span class="metric-value">1.2K+</span><span class="metric-label">Views Day 1</span></div>
+          <div class="metric"><span class="metric-value">2</span><span class="metric-label">Platforms</span></div>
+          <div class="metric"><span class="metric-value">5</span><span class="metric-label">Daily Clips</span></div>
+          <div class="metric"><span class="metric-value">8</span><span class="metric-label">APIs Used</span></div>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">Claude AI</span><span class="tag">FFmpeg</span>
+          <span class="tag">Whisper</span><span class="tag">YouTube API</span><span class="tag">Meta Graph API</span>
+          <span class="tag">Telegram Bot</span><span class="tag">Railway</span><span class="tag">GitHub CI/CD</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/MoneyForensicsusa/moneyforensics-pipeline" class="project-link" target="_blank">GitHub →</a>
+          <a href="https://youtube.com/@MoneyForensicsDaily" class="project-link" target="_blank">Live Channel →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- P2: Multi-Agent Finance -->
+    <div class="project-card col-4 fade-in" style="position:relative">
+      <div class="roadmap-badge">Next Build</div>
+      <div class="project-visual" style="min-height:160px;font-size:3rem">📊</div>
+      <div class="project-body">
+        <div class="project-status status-building">In Development</div>
+        <h3 class="project-name">Multi-Agent Financial Intelligence</h3>
+        <p class="project-desc">5 specialized AI agents working in parallel — Market Scanner, Analyst, Writer, Risk Monitor, and Orchestrator — delivering real-time financial intelligence and automated reporting.</p>
+        <div class="project-tags">
+          <span class="tag">Multi-Agent</span><span class="tag">Claude AI</span>
+          <span class="tag">Financial APIs</span><span class="tag">Python</span><span class="tag">Railway</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P3: RAG -->
+    <div class="project-card col-4 fade-in" style="position:relative">
+      <div class="roadmap-badge">Planned</div>
+      <div class="project-visual" style="min-height:160px;font-size:3rem">📚</div>
+      <div class="project-body">
+        <div class="project-status status-planned">Planned</div>
+        <h3 class="project-name">RAG Document Intelligence Agent</h3>
+        <p class="project-desc">Enterprise document Q&A. Upload PDFs, contracts, reports — ask questions in plain English and get accurate sourced answers from private company knowledge.</p>
+        <div class="project-tags">
+          <span class="tag">RAG</span><span class="tag">Vector DB</span>
+          <span class="tag">Claude AI</span><span class="tag">LangChain</span><span class="tag">GCP</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P4: MCP -->
+    <div class="project-card col-4 fade-in" style="position:relative">
+      <div class="roadmap-badge">Planned</div>
+      <div class="project-visual" style="min-height:160px;font-size:3rem">🔌</div>
+      <div class="project-body">
+        <div class="project-status status-planned">Planned</div>
+        <h3 class="project-name">MCP-Powered AI Assistant</h3>
+        <p class="project-desc">AI assistant built on Anthropic's Model Context Protocol — the cutting-edge 2026 standard for how AI systems interact with external tools at enterprise scale.</p>
+        <div class="project-tags">
+          <span class="tag">MCP Protocol</span><span class="tag">FastMCP</span>
+          <span class="tag">Claude AI</span><span class="tag">LangGraph</span><span class="tag">Anthropic</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P5: Vertical Automation -->
+    <div class="project-card col-6 fade-in" style="position:relative">
+      <div class="roadmap-badge">Planned</div>
+      <div class="project-visual" style="min-height:140px;font-size:3rem">🏢</div>
+      <div class="project-body">
+        <div class="project-status status-planned">Planned</div>
+        <h3 class="project-name">Vertical Business Automation Agent</h3>
+        <p class="project-desc">Full-stack AI automation for a specific business vertical — monitoring, content creation, client communication, scheduling and follow-up handled autonomously.</p>
+        <div class="project-tags">
+          <span class="tag">Agentic AI</span><span class="tag">Claude AI</span>
+          <span class="tag">CRM Integration</span><span class="tag">Python</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- P6: Voice Agent -->
+    <div class="project-card col-6 fade-in" style="position:relative">
+      <div class="roadmap-badge">Planned</div>
+      <div class="project-visual" style="min-height:140px;font-size:3rem">📞</div>
+      <div class="project-body">
+        <div class="project-status status-planned">Planned</div>
+        <h3 class="project-name">Voice AI — Missed Call Agent</h3>
+        <p class="project-desc">Intelligent voice agent handling missed calls for businesses. Engages callers naturally in real-time conversation, collects information, and schedules appointments automatically.</p>
+        <div class="project-tags">
+          <span class="tag">Twilio</span><span class="tag">ElevenLabs</span>
+          <span class="tag">Claude AI</span><span class="tag">Deepgram</span><span class="tag">Real-time Audio</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="stack" class="tech-section">
+  <p class="section-label fade-in">// Tech Stack</p>
+  <h2 class="section-title fade-in">Tools & Technologies</h2>
+  <p class="section-subtitle fade-in">The stack I use to build production AI systems from zero to deployment.</p>
+  <div class="tech-grid fade-in">
+    <div class="tech-category">
+      <div class="tech-cat-title">AI & Models</div>
+      <div class="tech-items">
+        <span class="tech-item">Anthropic Claude</span>
+        <span class="tech-item">OpenAI Whisper</span>
+        <span class="tech-item">GPT-4 / GPT-5</span>
+        <span class="tech-item">ElevenLabs TTS</span>
+        <span class="tech-item">Deepgram STT</span>
+      </div>
+    </div>
+    <div class="tech-category">
+      <div class="tech-cat-title">Cloud</div>
+      <div class="tech-items">
+        <span class="tech-item">Google Cloud (GCP)</span>
+        <span class="tech-item">Microsoft Azure</span>
+        <span class="tech-item">Railway</span>
+        <span class="tech-item">DigitalOcean</span>
+        <span class="tech-item">AWS (basics)</span>
+      </div>
+    </div>
+    <div class="tech-category">
+      <div class="tech-cat-title">Languages</div>
+      <div class="tech-items">
+        <span class="tech-item">Python</span>
+        <span class="tech-item">JavaScript</span>
+        <span class="tech-item">Bash / Shell</span>
+        <span class="tech-item">HTML / CSS</span>
+        <span class="tech-item">SQL</span>
+      </div>
+    </div>
+    <div class="tech-category">
+      <div class="tech-cat-title">APIs & Platforms</div>
+      <div class="tech-items">
+        <span class="tech-item">YouTube Data API</span>
+        <span class="tech-item">Meta Graph API</span>
+        <span class="tech-item">Telegram Bot API</span>
+        <span class="tech-item">Google OAuth2</span>
+        <span class="tech-item">Twilio</span>
+      </div>
+    </div>
+    <div class="tech-category">
+      <div class="tech-cat-title">AI Frameworks</div>
+      <div class="tech-items">
+        <span class="tech-item">LangChain</span>
+        <span class="tech-item">LangGraph</span>
+        <span class="tech-item">MCP Protocol</span>
+        <span class="tech-item">RAG Systems</span>
+        <span class="tech-item">Multi-Agent</span>
+      </div>
+    </div>
+    <div class="tech-category">
+      <div class="tech-cat-title">DevOps & Media</div>
+      <div class="tech-items">
+        <span class="tech-item">GitHub / Git</span>
+        <span class="tech-item">CI/CD Pipelines</span>
+        <span class="tech-item">FFmpeg</span>
+        <span class="tech-item">Pillow (PIL)</span>
+        <span class="tech-item">Docker basics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <p class="section-label fade-in">// Contact</p>
+  <h2 class="section-title fade-in">Let's build something</h2>
+  <p class="section-subtitle fade-in">Have a business problem that needs AI automation? Want to discuss a project or role? I'm always open to interesting conversations.</p>
+  <div class="contact-cards fade-in">
+    <a href="mailto:wonderfuleyeh25@gmail.com" class="contact-card">
+      <div class="contact-card-icon">✉️</div>
+      <div class="contact-card-label">Email</div>
+      <div class="contact-card-value">wonderfuleyeh25@gmail.com</div>
+    </a>
+    <a href="https://www.linkedin.com/in/ifechukwu-e-802a38138" target="_blank" class="contact-card">
+      <div class="contact-card-icon">💼</div>
+      <div class="contact-card-label">LinkedIn</div>
+      <div class="contact-card-value">ifechukwu-e-802a38138</div>
+    </a>
+    <a href="https://github.com/MoneyForensicsusa" target="_blank" class="contact-card">
+      <div class="contact-card-icon">⚡</div>
+      <div class="contact-card-label">GitHub</div>
+      <div class="contact-card-value">MoneyForensicsusa</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Ifechukwu Eyeh</span> — AI Engineer & Cloud Architect · Austin, Texas</p>
+  <p>Built with <span>Claude AI</span></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
